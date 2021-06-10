@@ -141,6 +141,8 @@
           <div
             v-for="t of tickers"
             :key="t.name" 
+            @click="select(t)"
+            :class="{ 'border-4' : t === selectedItem }"
             class="bg-white overflow-hidden shadow rounded-lg border-purple-800 border-solid cursor-pointer"
           >
             <div class="px-4 py-5 sm:p-6 text-center">
@@ -153,7 +155,7 @@
             </div>
             <div class="w-full border-t border-gray-200"></div>
             <button
-              @click="handleDelete(t)" 
+              @click.stop="handleDelete(t)" 
               class="flex items-center justify-center font-medium w-full bg-gray-100 px-4 py-4 sm:px-6 text-md text-gray-500 hover:text-gray-600 hover:bg-gray-200 hover:opacity-20 transition-all focus:outline-none"
             >
               <svg
@@ -173,25 +175,23 @@
         </dl>
         <hr class="w-full border-t border-gray-600 my-4" />
       </template>
-      <!-- <section class="relative">
+      <section 
+        v-if="selectedItem"
+        class="relative"
+      >
         <h3 class="text-lg leading-6 font-medium text-gray-900 my-8">
-          VUE - USD
+          {{ selectedItem.name }} - USD
         </h3>
         <div class="flex items-end border-gray-600 border-b border-l h-64">
           <div
-            class="bg-purple-800 border w-10 h-24"
-          ></div>
-          <div
-            class="bg-purple-800 border w-10 h-32"
-          ></div>
-          <div
-            class="bg-purple-800 border w-10 h-48"
-          ></div>
-          <div
-            class="bg-purple-800 border w-10 h-16"
+            v-for="(bar, idx) in normalizeGraph()"
+            :key="idx"
+            :style="{ height: `${bar}%` }"
+            class="bg-purple-800 border w-10"
           ></div>
         </div>
         <button
+          @click="selectedItem = null"
           type="button"
           class="absolute top-0 right-0"
         >
@@ -217,7 +217,7 @@
             </g>
           </svg>
         </button>
-      </section> -->
+      </section>
     </div>
   </div>
 </template>
@@ -229,40 +229,53 @@ export default {
   data() {
     return {
       ticker: null,
-      tickers: [
-        {
-          name: 'BTC',
-          price: '123',
-        },
-        {
-          name: 'ETH',
-          price: '321',
-        },
-        {
-          name: 'DOGE',
-          price: '213',
-        },
-        {
-          name: 'XRP',
-          price: '312',
-        },
-      ],
+      tickers: [],
+      selectedItem: null,
+      graph: [],
     }
   },
 
   methods: {
     add() {
-      const newTicker = {
+      const currentTicker = {
         name: this.ticker,
         price: '-'
       };
 
-      this.tickers.push(newTicker);
+      this.tickers.push(currentTicker);
+      setInterval(async () => {
+        const f = await fetch(`https://min-api.cryptocompare.com/data/price?fsym=${currentTicker.name}&tsyms=USD&api_key=ae31660f9db182aec72ab510fe70a19eef6fac2584e3fb22855bbddb42d5a959`);
+        const data = await f.json();
+        
+        this.tickers
+            .find(t => t.name === currentTicker.name)
+            .price = data.USD > 1 
+            ? data.USD.toFixed(2) 
+            : data.USD.toPrecision(4);
+        
+        if (this.selectedItem?.name === currentTicker.name) {
+          this.graph.push(data.USD);
+        }
+      }, 5000);
       this.ticker = '';
     },
 
     handleDelete(tickerToRemove) {
       this.tickers = this.tickers.filter(t => t !== tickerToRemove);
+    },
+
+    normalizeGraph() {
+      const maxValue = Math.max(...this.graph);
+      const minValue = Math.min(...this.graph);
+
+      return this.graph.map(
+        price => 5 + ((price - minValue) * 95) / (maxValue - minValue)
+      );
+    },
+
+    select(ticker) {
+      this.selectedItem = ticker;
+      this.graph = [];
     },
   },
 };
