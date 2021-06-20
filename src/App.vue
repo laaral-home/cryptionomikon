@@ -14,100 +14,28 @@
                 type="text"
                 name="wallet"
                 id="wallet"
-                class="block w-full pr-10 border-gray-300 text-gray-900 focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm rounded-md"
+                class="
+                  block
+                  w-full
+                  pr-10
+                  border-gray-300
+                  text-gray-900
+                  focus:outline-none focus:ring-gray-500 focus:border-gray-500
+                  sm:text-sm
+                  rounded-md
+                "
                 placeholder="Например DOGE"
               />
             </div>
-            <div class="flex bg-white shadow-md p-1 rounded-md shadow-md flex-wrap">
-              <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-                BTC
-              </span>
-              <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-                ETH
-              </span>
-              <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-                XRP
-              </span>
-              <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-                USDT
-              </span>
-              <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-                BNB
-              </span>
-              <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-                ADA
-              </span>
-              <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-                DOGE
-              </span>
-              <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-                ICP
-              </span>
-              <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-                LINK
-              </span>
-              <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-                UNI
-              </span>
-              <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-                VET
-              </span>
-              <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-                THETA
-              </span>
-              <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-                BUSD
-              </span>
-              <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-                TRX
-              </span>
-              <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-                GRT
-              </span>
-              <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-                ETC
-              </span>
-              <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-                WBTC
-              </span>
-              <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-                ALGO
-              </span>
-              <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-                FIL
-              </span>
-              <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-                AVAX
-              </span>
-              <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-                LUNA
-              </span>
-              <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-                AMP
-              </span>
-              <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-                AAVE
-              </span>
-              <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-                EOS
-              </span>
-              <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-                NEO
-              </span>
-              <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-                CEL
-              </span>
-              <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-                DAI
-              </span>
-              <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-                1INCH
-              </span>
-              <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-                XMR
-              </span>
-              <span class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
-                CRO
+            <div
+              class="flex bg-white shadow-md p-1 rounded-md shadow-md flex-wrap"
+            >
+              <span 
+                v-for="clT in clickTickers"
+                :key="clT"
+                @click="selectClickTickers(clT)"
+                class="inline-flex items-center px-2 m-1 rounded-md text-xs font-medium bg-gray-300 text-gray-800 cursor-pointer">
+                {{ clT }}
               </span>
             </div>
             <!-- <div class="text-sm text-red-600">Такой тикер уже добавлен</div> -->
@@ -228,6 +156,38 @@ export default {
 
   data() {
     return {
+      clickTickers: [
+        "BTC",
+        "ETH",
+        "XRP",
+        "SDT",
+        "BNB",
+        "ADA",
+        "OGE",
+        "ICP",
+        "INK",
+        "UNI",
+        "VET",
+        "HETA",
+        "BUSD",
+        "TRX",
+        "GRT",
+        "ETC",
+        "WBTC",
+        "ALGO",
+        "FIL",
+        "AVAX",
+        "LUNA",
+        "AMP",
+        "AAVE",
+        "EOS",
+        "NEO",
+        "CEL",
+        "DAI",
+        "1INCH",
+        "XMR",
+        "CRO",
+      ],
       ticker: null,
       tickers: [],
       selectedItem: null,
@@ -239,7 +199,7 @@ export default {
     add() {
       const currentTicker = {
         name: this.ticker,
-        price: '-'
+        price: "-",
       };
 
       this.tickers.push(currentTicker);
@@ -277,8 +237,10 @@ export default {
       this.selectedItem = ticker;
       this.graph = [];
     },
+
+    selectClickTickers(clT) {
+      this.ticker = clT;
+    },
   },
 };
 </script>
-
-<style src="./app.css"></style>
